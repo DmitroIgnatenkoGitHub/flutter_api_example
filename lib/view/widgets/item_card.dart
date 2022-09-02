@@ -15,6 +15,10 @@ class _ItemCardState extends State<ItemCard> {
   Future? cats;
   ApiService apiService = ApiService();
 
+  void populateList() {
+    cats = apiService.getAllCats();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -38,80 +42,82 @@ class _ItemCardState extends State<ItemCard> {
                       : 2,
                   crossAxisSpacing: 1.w,
                   mainAxisSpacing: 1.h,
-                  childAspectRatio:
-                      0.9 //?длина карточки, но есть проблемы с версткой экрана !
+                  childAspectRatio: 0.9 //?the length of the card, but there are problems in some screens
                   ),
               itemBuilder: (BuildContext context, int index) {
-                return Stack(children: <Widget>[
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(3.h),
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return DetailsScreen(cat: catData[index]);
-                                  },
-                                ),
-                              );
-                            },
-                            child: SizedBox(
-                              height: 20.h,
-                              width: 48.w,
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(3.h),
-                                  topRight: Radius.circular(3.h),
-                                ),
-                                child: FutureBuilder(
-                                  future: apiService
-                                      .getImageUrlByBreedId(catData[index].id),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      String url = snapshot.data as String;
-                                      return Container(
-                                        decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                            image: NetworkImage(url),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ); // image is ready
-                                    } else {
-                                      return const SizedBox(
-                                        height: 100,
-                                        width: 100,
-                                        child: Center(
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                      ); // placeholder
-                                    }
-                                  },
-                                ),
-                              ),
-                            )),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                catData[index].name,
-                                maxLines: 1,
-                                style: TextStyle(
-                                    fontSize: 3.h, color: Colors.black),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+
+                return Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(3.h),
                   ),
-                ]);
+                  child: Column(
+                    children: <Widget>[
+                      //*photo in card start
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return DetailsScreen(cat: catData[index]);
+                                },
+                              ),
+                            );
+                          },
+                          child: SizedBox(
+                            height: 20.h,
+                            width: 48.w,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(3.h),
+                                topRight: Radius.circular(3.h),
+                              ),
+                              child: FutureBuilder(
+                                future: apiService
+                                    .getImageUrlByBreedId(catData[index].id),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    String url = snapshot.data as String;
+                                    //loading photo
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: NetworkImage(url),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ); 
+                                  } else {
+                                    // loading circular indicator
+                                    return const SizedBox(
+                                      height: 100,
+                                      width: 100,
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    ); 
+                                  }
+                                },
+                              ),
+                            ),
+                          )),
+                          //*photo in card end
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              catData[index].name,
+                              maxLines: 1,
+                              style: TextStyle(
+                                  fontSize: 3.h, color: Colors.black),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               },
             );
           } else if (snapshot.hasError) {
@@ -122,9 +128,5 @@ class _ItemCardState extends State<ItemCard> {
 
           return const Center(child: CircularProgressIndicator());
         });
-  }
-
-  void populateList() {
-    cats = apiService.getAllCats();
   }
 }

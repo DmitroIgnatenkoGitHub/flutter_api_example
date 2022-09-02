@@ -27,8 +27,6 @@ class DetailsScreen extends StatelessWidget {
             SliverGrid(
               gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 100.h,
-                //mainAxisSpacing: 10.0,
-                //crossAxisSpacing: 10.0,
                 childAspectRatio: 1,
               ),
               delegate: SliverChildBuilderDelegate(
@@ -36,15 +34,13 @@ class DetailsScreen extends StatelessWidget {
                   return Container(
                     alignment: Alignment.center,
                     //color: kWhitethemecolor,
-                    child: Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SizedBox(
-                          height: 50.h,
-                          child: Text(
-                            cat.description,
-                            style: const TextStyle(fontSize: 24),
-                          ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SizedBox(
+                        height: 50.h,
+                        child: Text(
+                          cat.description,
+                          style: const TextStyle(fontSize: 24),
                         ),
                       ),
                     ),

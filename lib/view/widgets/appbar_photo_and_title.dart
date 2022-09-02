@@ -13,6 +13,7 @@ class AppbarPhotoAndTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
+      //*photo start
       SizedBox(
           width: 100.h,
           height: 40.h,
@@ -44,6 +45,8 @@ class AppbarPhotoAndTitle extends StatelessWidget {
               },
             ),
           )),
+          //*photo end
+      //*title start
       Positioned(
           bottom: 0,
           right: 0,
@@ -70,8 +73,9 @@ class AppbarPhotoAndTitle extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       cat.name,
-                      //'Название рецепта',
-                      style: Theme.of(context).textTheme.headline4,
+                      style: const TextStyle(
+                        fontSize: 30
+                      ),
                     ),
                   ],
                 )),
@@ -79,6 +83,7 @@ class AppbarPhotoAndTitle extends StatelessWidget {
               ],
             ),
           ))
+          //*title end
     ]);
   }
 }
