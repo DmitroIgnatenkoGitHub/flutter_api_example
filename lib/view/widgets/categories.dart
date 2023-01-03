@@ -11,10 +11,16 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List categories = [
+      cat.adaptability,
+      cat.intelligence,
+      cat.rare,
+      cat.hypoallergenic
+      /*
       "Adaptability: ${cat.adaptability}",
-      "Intelligence",
-      "Rare",
-      "Hypoallergenic"
+      "Intelligence: ${cat.intelligence}",
+      "Rare: ${cat.rare}",
+      "Hypoallergenic: ${cat.hypoallergenic}"
+      */
     ];
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 1.h),
