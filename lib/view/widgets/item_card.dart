@@ -32,7 +32,6 @@ class _ItemCardState extends State<ItemCard> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Cat> catData = snapshot.data as List<Cat>;
-
             return GridView.builder(
               itemCount: catData.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -42,11 +41,12 @@ class _ItemCardState extends State<ItemCard> {
                       : 2,
                   crossAxisSpacing: 1.w,
                   mainAxisSpacing: 1.h,
-                  childAspectRatio: 0.9 //?the length of the card, but there are problems in some screens
+                  childAspectRatio:
+                      0.9 //?the length of the card, but there are problems in some screens
                   ),
               itemBuilder: (BuildContext context, int index) {
-
                 return Card(
+                  color: const Color.fromARGB(255, 68, 68, 68),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(3.h),
                   ),
@@ -80,12 +80,13 @@ class _ItemCardState extends State<ItemCard> {
                                     //loading photo
                                     return Container(
                                       decoration: BoxDecoration(
+                                        color: const Color.fromARGB(255, 68, 68, 68),
                                         image: DecorationImage(
                                           image: NetworkImage(url),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
-                                    ); 
+                                    );
                                   } else {
                                     // loading circular indicator
                                     return const SizedBox(
@@ -94,13 +95,13 @@ class _ItemCardState extends State<ItemCard> {
                                       child: Center(
                                         child: CircularProgressIndicator(),
                                       ),
-                                    ); 
+                                    );
                                   }
                                 },
                               ),
                             ),
                           )),
-                          //*photo in card end
+                      //*photo in card end
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Column(
@@ -109,8 +110,9 @@ class _ItemCardState extends State<ItemCard> {
                             Text(
                               catData[index].name,
                               maxLines: 1,
-                              style: TextStyle(
-                                  fontSize: 3.h, color: Colors.black),
+                              style: const TextStyle(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 255, 255, 255)),
                             ),
                           ],
                         ),

@@ -1,32 +1,36 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:flutter_api_example/models/cat.dart';
 import 'package:flutter_api_example/models/cat_image.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
   Future<List<Cat>> getAllCats() async {
-    final response =
-        await http.get(Uri.parse("https://api.thecatapi.com/v1/breeds"));
+    try {
+      final response =
+          await http.get(Uri.parse("https://api.thecatapi.com/v1/breeds"));
 
-    if (response.statusCode == 200) {
       final result = json.decode(response.body);
       Iterable list = result;
       return list.map((model) => Cat.fromJson(model)).toList();
-    } else {
-      throw Exception('Failed to load data!');
+    } catch (e) {
+      debugPrint("$e");
     }
+    return [];
   }
 
   //! can be nullable now
-  Future <String?> getImageUrlByBreedId(String id) async {
-    final response = await http.get(
-        Uri.parse('https://api.thecatapi.com/v1/images/search?breed_ids=$id'));
+  Future<String> getImageUrlByBreedId(String id) async {
+    try {
+      final response = await http.get(Uri.parse(
+          'https://api.thecatapi.com/v1/images/search?breed_ids=$id'));
 
-    if (response.statusCode == 200) {
       final result = json.decode(response.body);
       Iterable list = result;
       return list.map((model) => CatImage.fromJson(model)).toList()[0].url;
+    } catch (e) {
+      debugPrint("$e");
     }
-    return null; 
+    return "";
   }
 }

@@ -14,38 +14,41 @@ class AppbarPhotoAndTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
       //*photo start
-      SizedBox(
-          width: 100.h,
-          height: 40.h,
-          child: ClipRRect(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(5.h),
-            ),
-            child: FutureBuilder(
-              future: ApiService().getImageUrlByBreedId(cat.id),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  String url = snapshot.data as String;
-                  return Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(url),
-                        fit: BoxFit.cover,
+      Padding(
+        padding: const EdgeInsets.only(bottom: 25.0),
+        child: SizedBox(
+            width: 100.h,
+            height: 40.h,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(5.h),
+              ),
+              child: FutureBuilder(
+                future: ApiService().getImageUrlByBreedId(cat.id),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    String url = snapshot.data as String;
+                    return Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: NetworkImage(url),
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                    ),
-                  ); // image is ready
-                } else {
-                  return const SizedBox(
-                    height: 250,
-                    child: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  ); // placeholder
-                }
-              },
-            ),
-          )),
-          //*photo end
+                    ); // image is ready
+                  } else {
+                    return const SizedBox(
+                      height: 250,
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    ); // placeholder
+                  }
+                },
+              ),
+            )),
+      ),
+      //*photo end
       //*title start
       Positioned(
           bottom: 0,
@@ -53,16 +56,24 @@ class AppbarPhotoAndTitle extends StatelessWidget {
           child: Container(
             height: 70,
             width: MediaQuery.of(context).orientation == Orientation.landscape
-                ? 95.h
-                : 95.w,
+                ? 85.h
+                : 85.w,
             decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.5),
+                  spreadRadius: 0.2,
+                  blurRadius: 2,
+                  offset: const Offset(0, 2), // changes position of shadow
+                ),
+              ],
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(5.h),
                   topLeft: Radius.circular(5.h)),
-              color: Colors.white,
+              color: const Color.fromARGB(255, 68, 68, 68),
             ),
             child: Row(
-              children: <Widget>[
+              children: [
                 const SizedBox(
                   width: 20,
                 ),
@@ -73,17 +84,16 @@ class AppbarPhotoAndTitle extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       cat.name,
-                      style: const TextStyle(
-                        fontSize: 30
-                      ),
+                      style:
+                          const TextStyle(fontSize: 32, color: Colors.white),
                     ),
                   ],
                 )),
-                const SizedBox(width: 5)
+                const SizedBox(width: 5),
               ],
             ),
           ))
-          //*title end
+      //*title end
     ]);
   }
 }
