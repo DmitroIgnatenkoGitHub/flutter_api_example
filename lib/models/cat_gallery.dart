@@ -10,12 +10,8 @@ class CatGallery {
   factory CatGallery.fromJson(Map<String, dynamic> json) {
     return CatGallery(
       id: json['id'],
-      url: json['name'],
+      url: json['url'],
     );
   }
 
-  @override
-  String toString() {
-    return 'Cat: id=$id';
-  }
 }

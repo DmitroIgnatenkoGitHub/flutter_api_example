@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_example/view/screens/gallery_screen.dart';
 import 'package:sizer/sizer.dart';
 import 'package:flutter_api_example/data/api_service.dart';
 import 'package:flutter_api_example/models/cat.dart';
+
+import '../../utils/theme.dart';
 
 class AppbarPhotoAndTitle extends StatelessWidget {
   final Cat cat;
@@ -54,7 +57,6 @@ class AppbarPhotoAndTitle extends StatelessWidget {
           bottom: 0,
           right: 0,
           child: Container(
-            height: 70,
             width: MediaQuery.of(context).orientation == Orientation.landscape
                 ? 85.h
                 : 85.w,
@@ -70,7 +72,7 @@ class AppbarPhotoAndTitle extends StatelessWidget {
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(5.h),
                   topLeft: Radius.circular(5.h)),
-              color: const Color.fromARGB(255, 68, 68, 68),
+              color: ThemeColor.darkGrey,
             ),
             child: Row(
               children: [
@@ -84,12 +86,47 @@ class AppbarPhotoAndTitle extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       cat.name,
-                      style:
-                          const TextStyle(fontSize: 32, color: Colors.white),
+                      style: TextStyle(fontSize: 32, color: ThemeColor.white),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(6.0),
+                      child: Text(
+                        "Origin: ${cat.origin}",
+                        textAlign: TextAlign.end,
+                        style:  TextStyle(
+                            color: ThemeColor.white,
+                            fontSize: 14),
+                      ),
                     ),
                   ],
                 )),
-                const SizedBox(width: 5),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return GalleryScreen(cat: cat);
+                          },
+                        ),
+                      );
+                    },
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.photo_library_sharp,
+                          color: ThemeColor.white,
+                          size: 30.0,
+                        ),
+                        Text(
+                          "Open cat gallery:",
+                          style: TextStyle(color: ThemeColor.white),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
               ],
             ),
           ))

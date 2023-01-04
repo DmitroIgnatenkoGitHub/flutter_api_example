@@ -1,4 +1,5 @@
 import 'package:flutter_api_example/data/api_service.dart';
+import 'package:flutter_api_example/utils/theme.dart';
 import 'package:flutter_api_example/view/screens/details_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_api_example/models/cat.dart';
@@ -46,7 +47,7 @@ class _ItemCardState extends State<ItemCard> {
                   ),
               itemBuilder: (BuildContext context, int index) {
                 return Card(
-                  color: const Color.fromARGB(255, 68, 68, 68),
+                  color: ThemeColor.darkGrey,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(3.h),
                   ),
@@ -80,7 +81,7 @@ class _ItemCardState extends State<ItemCard> {
                                     //loading photo
                                     return Container(
                                       decoration: BoxDecoration(
-                                        color: const Color.fromARGB(255, 68, 68, 68),
+                                        color: ThemeColor.darkGrey,
                                         image: DecorationImage(
                                           image: NetworkImage(url),
                                           fit: BoxFit.cover,

@@ -15,12 +15,6 @@ class Categories extends StatelessWidget {
       cat.intelligence,
       cat.rare,
       cat.hypoallergenic
-      /*
-      "Adaptability: ${cat.adaptability}",
-      "Intelligence: ${cat.intelligence}",
-      "Rare: ${cat.rare}",
-      "Hypoallergenic: ${cat.hypoallergenic}"
-      */
     ];
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 1.h),

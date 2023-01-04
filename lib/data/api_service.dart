@@ -35,10 +35,10 @@ class ApiService {
     return "";
   }
 
-  Future<List<CatGallery>> getImagesUrlByBreedId(String id) async {
+  Future<List<CatGallery>> getGalleryByBreedId(String id) async {
     try {
-      final response =
-          await http.get(Uri.parse("https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=$id&api_key=REPLACE_ME"));
+      final response = await http.get(Uri.parse(
+          "https://api.thecatapi.com/v1/images/search?limit=10&breed_ids=$id&api_key=REPLACE_ME"));
 
       final result = json.decode(response.body);
       Iterable list = result;
